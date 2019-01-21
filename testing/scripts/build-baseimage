@@ -132,3 +132,7 @@ done
 
 log_action "Disabling root password"
 execute_chroot "passwd -d root"
+
+log_action "Switching git:// to https://"
+execute_chroot 'git config --system url.https://.insteadOf git://'
+execute_chroot 'git config --system -l'
