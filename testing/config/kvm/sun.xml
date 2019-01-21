@@ -14,6 +14,7 @@
     <model fallback='allow'>core2duo</model>
     <feature policy='optional' name='aes'/>
     <feature policy='optional' name='pclmuldq'/>
+    <feature policy='disable' name='monitor'/>
   </cpu>
   <features>
     <acpi/>
