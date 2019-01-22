@@ -19,6 +19,8 @@ running_any $STRONGSWANHOSTS && die "Please stop test environment before running
 
 check_commands $KVMCMD virsh
 
+KVMCMDPATH=`command -v $KVMCMD`
+
 [ -f $KNLSRC ] || die "Kernel $KNLSRC not found"
 log_action "Deploying kernel $KERNEL"
 execute "ln -fs $KNLSRC $KNLTARGET"
@@ -41,7 +43,8 @@ for host in $STRONGSWANHOSTS
 do
 	ln -fs $IMGDIR/$host.$IMGEXT $VIRTIMGSTORE/$host.$IMGEXT
 	log_action "Guest $host"
-	execute "virsh create $CONFDIR/$host.xml"
+	sed -e "s|/usr/bin/kvm|$KVMCMDPATH|g;" $CONFDIR/$host.xml > $CONFDIR/$host-working.xml
+	execute "virsh create $CONFDIR/$host-working.xml"
 done
 
 # Enforce reception of multicast traffic on bridges
