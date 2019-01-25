@@ -1,0 +1,12 @@
+moon::ipsec status 2> /dev/null::host-host.*ESTABLISHED.*moon.strongswan.org.*sun.strongswan.org::YES
+sun:: ipsec status 2> /dev/null::host-host.*ESTABLISHED.*sun.strongswan.org.*moon.strongswan.org::YES
+moon::ipsec status 2> /dev/null::host-host.*INSTALLED, TUNNEL.*CONTEXT:system_u:object_r:ipsec_spd_t:s0-s0:c0.c1023::YES
+moon::ipsec status 2> /dev/null::host-host.*INSTALLED, TUNNEL.*CONTEXT:system_u:object_r:ping_t:s0:c1::YES
+moon::ipsec status 2> /dev/null::host-host.*INSTALLED, TUNNEL.*CONTEXT:system_u:object_r:ping_t:s0:c2::YES
+sun:: ipsec status 2> /dev/null::host-host.*INSTALLED, TUNNEL.*CONTEXT:system_u:object_r:ipsec_spd_t:s0-s0:c0.c1023::YES
+sun::ipsec status 2> /dev/null::host-host.*INSTALLED, TUNNEL.*CONTEXT:system_u:object_r:ping_t:s0:c1::YES
+sun::ipsec status 2> /dev/null::host-host.*INSTALLED, TUNNEL.*CONTEXT:system_u:object_r:ping_t:s0:c2::YES
+moon::runcon --type=ping_t --range=s0:c1 ping -c 1 PH_IP_SUN::64 bytes from PH_IP_SUN: icmp_.eq=1::YES
+moon::runcon --type=ping_t --range=s0:c2 ping -c 1 PH_IP_SUN::64 bytes from PH_IP_SUN: icmp_.eq=1::YES
+sun::tcpdump::IP moon.strongswan.org > sun.strongswan.org: ESP::YES
+sun::tcpdump::IP sun.strongswan.org > moon.strongswan.org: ESP::YES
